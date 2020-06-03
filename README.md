@@ -1,4 +1,6 @@
+В файл /etc/netplan/01-netcfg.yaml добавить строку
 dhcp-identifier: mac
+
 
 
 
@@ -35,9 +37,9 @@ xset s noblank
 xset -dpms
 setxkbmap -option srvrkeys:none
 /usr/bin/numlockx on
-# Allow quitting the X server with CTRL-ATL-Backspace
+#Allow quitting the X server with CTRL-ATL-Backspace
 #setxkbmap -option terminate:ctrl_alt_bksp
-# Start Remmina in kiosk mode
+#Start Remmina in kiosk mode
 /opt/xfreerdp-gui.sh
 #xterm
 
