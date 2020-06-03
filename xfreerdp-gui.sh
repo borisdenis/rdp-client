@@ -57,58 +57,45 @@
     IP=$(hostname -I)
     LOGIN=$(cat /home/tonk/login)
     PASSWORD=
-    DOMAIN=
-    SERVER=
-    PORT=
-    RESOLUTION=
-    GEOMETRY=
-    CERTIGNORE=
-    BPP=  
-    NAMEDIR=
-    DIR=
-    OPTIONS=  
-      varFull="TRUE"
-    varLog=
     [ -n "$USER" ] && until xdotool search "xfreerdp-gui" windowactivate key Right Tab 2>/dev/null ; do sleep 0.03; done &
       FORMULARY=$(yad --center --width=380 \
-          --window-icon="gtk-execute" --image="debian-logo" --item-separator=","                                              \
-          --title "Подключение...Мой IP:  $IP"                                                                                              \
-          --form                                                                                                              \
-          --field="Имя пользователя " $LOGIN ""                                                                            \
-          --field="Пароль ":H $PASSWORD ""                                                                                  \
-          --button="Выключить":1 --button="Войти":0)
+          --window-icon="gtk-execute" --image="debian-logo" --item-separator=","                                            \
+          --title "РџРѕРґРєР»СЋС‡РµРЅРёРµ...РњРѕР№ IP:  $IP"                                                                              \
+          --form                                                                                                            \
+          --field="РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ " $LOGIN ""                                                                             \
+          --field="РџР°СЂРѕР»СЊ ":H $PASSWORD ""                                                                                  \
+          --field="Р–СѓСЂРЅР°Р»":CHK $varLog                                                                                      \
+          --button="Р’С‹РєР»СЋС‡РёС‚СЊ":1 --button="Р’РѕР№С‚Рё":0)
       [ $? != 0 ] && poweroff
       LOGIN=$(echo $FORMULARY      | awk -F '|' '{ print $1 }')
       PASSWORD=$(echo $FORMULARY   | awk -F '|' '{ print $2 }')
-      if [ "$varFull" = "TRUE" ]; then
-          GEOMETRY="/f"
-      else
-          GEOMETRY=""
-      fi  
-      varLog=$(echo $FORMULARY | awk -F '|' '{ print $12 }')
+      varLog=$(echo $FORMULARY     | awk -F '|' '{ print $3 }')
+
 
 #      echo $LOGIN > /home/tonk/login
 
       RES=$(xfreerdp                            \
-                      /v:terminal4.ed.corp /cert-ignore /u:"$LOGIN" /p:"$PASSWORD" /f -compression +fonts /sound /smartcard +drives /gfx-h264 /multimon /auto-reconnect 2>&1 )
+                      /v:terminal4.ed.corp /cert-ignore /u:"$LOGIN" /p:"$PASSWORD" /f -compression +fonts /sound +drives /gfx-h264 /multimon /auto-reconnect 2>&1 )
     
+      echo $LOGIN > /home/tonk/login
       echo $RES | grep -q "Authentication failure" &&                                                  \
-      yad --center --image="error" --window-icon="error" --title "Ошибка"              \
-      --text="<b>Не возможно соединиться с сервером\!</b>\n\n<i>Проверьте правильность ввода логина/пароля.</i>"         \
+      yad --center --image="error" --window-icon="error" --title "РћС€РёР±РєР°"              \
+      --text="<b>РќРµ РІРѕР·РјРѕР¶РЅРѕ СЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃ СЃРµСЂРІРµСЂРѕРј\!</b>\n\n<i>РџСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ РІРІРѕРґР° Р»РѕРіРёРЅР°/РїР°СЂРѕР»СЏ.</i>"         \
         --text-align=center --width=320 --button=gtk-ok --buttons-layout=spread && continue 
       echo $RES | grep -q "ERRCONNECT_LOGON_FAILURE" &&                                                  \
-      yad --center --image="error" --window-icon="error" --title "Ошибка"              \
-      --text="<b>Не возможно соединиться с сервером\!</b>\n\n<i>Проверьте правильность ввода логина/пароля.</i>"         \
+      yad --center --image="error" --window-icon="error" --title "РћС€РёР±РєР°"              \
+      --text="<b>РќРµ РІРѕР·РјРѕР¶РЅРѕ СЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃ СЃРµСЂРІРµСЂРѕРј\!</b>\n\n<i>РџСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ РІРІРѕРґР° Р»РѕРіРёРЅР°/РїР°СЂРѕР»СЏ.</i>"         \
         --text-align=center --width=320 --button=gtk-ok --buttons-layout=spread && continue 
       echo $RES | grep -q "connection failure" &&                                                      \
       yad --center --image="error" --window-icon="error" --title "Connection failure"                  \
-      --text="<b>Не возможно соединиться с сервером\!</b>\n\n<i>Возможно сеть не подключена.</i>" \
+      --text="<b>РќРµ РІРѕР·РјРѕР¶РЅРѕ СЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃ СЃРµСЂРІРµСЂРѕРј\!</b>\n\n<i>Р’РѕР·РјРѕР¶РЅРѕ СЃРµС‚СЊ РЅРµ РїРѕРґРєР»СЋС‡РµРЅР°.</i>" \
       --text-align=center --width=320 --button=gtk-ok --buttons-layout=spread && continue
       
       if [ "$varLog" = "TRUE" ]; then
-          yad --text "$RES" --title "Log of Events" --width=600 --wrap --no-buttons
+          yad --text "$RES" --title "Log of Events" --scroll --width=1200 --wrap --no-buttons
       fi
-      echo $LOGIN > /home/tonk/login      
+      echo $LOGIN > /home/tonk/login
+      echo $RES > /home/tonk/log
 ###      break
   done
 
