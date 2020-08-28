@@ -1,4 +1,4 @@
-Устанавливаем Ubuntu server 18.04
+Устанавливаем Ubuntu server
 
 В файл /etc/netplan/01-netcfg.yaml добавить строку
 
@@ -39,10 +39,17 @@ ExecStart=
 ExecStart=-/sbin/agetty -a tonk --noclear %I $TERM
 
 ---
-
+Для 18.04
 Установить пакеты
 
 sudo apt install --install-recommends xserver-xorg-hwe-18.04 xserver-xorg-input-all-hwe-18.04 x11-xserver-utils xinit openbox numlockx pulseaudio alsa alsa-utils alsa-tools moc gawk x11-utils yad zenity xfonts-100dpi xfonts-75dpi xfonts-scalable xterm freerdp2-x11 linux-generic-hwe-18.04 fdutils 
+
+
+Для 20.04
+Установить пакеты
+
+sudo apt install --install-recommends xserver-xorg xserver-xorg-input-all x11-xserver-utils xinit openbox numlockx pulseaudio alsa alsa-utils alsa-tools moc gawk x11-utils yad zenity xfonts-100dpi xfonts-75dpi xfonts-scalable xterm freerdp2-x11 linux-generic-hwe-20.04 fdutils xserver-xorg-video-amdgpu
+
 
 ---
 
