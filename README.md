@@ -48,7 +48,7 @@ sudo apt install --install-recommends xserver-xorg-hwe-18.04 xserver-xorg-input-
 Для 20.04
 Установить пакеты
 
-sudo apt install --install-recommends xserver-xorg xserver-xorg-input-all x11-xserver-utils xinit openbox numlockx pulseaudio alsa alsa-utils alsa-tools moc gawk x11-utils yad zenity xfonts-100dpi xfonts-75dpi xfonts-scalable xterm freerdp2-x11 linux-generic-hwe-20.04 fdutils xserver-xorg-video-amdgpu
+sudo apt install --install-recommends xserver-xorg xserver-xorg-input-all x11-xserver-utils xinit openbox numlockx pulseaudio alsa alsa-utils alsa-tools moc gawk x11-utils yad zenity xfonts-100dpi xfonts-75dpi xfonts-scalable xterm freerdp2-x11 linux-generic-hwe-20.04 fdutils
 
 
 ---
