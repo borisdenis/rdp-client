@@ -61,6 +61,7 @@ sudo apt install --install-recommends xserver-xorg xserver-xorg-input-all x11-xs
 Добавить пользователя в группу аудио
 
 sudo adduser ${USER} audio
+sudo adduser ${USER} video
 
 ---
 
