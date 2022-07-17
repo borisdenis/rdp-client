@@ -50,7 +50,7 @@ W: Possible missing firmware /lib/firmware/rtl_nic/rtl8125a-3.fw for module r816
 W: Possible missing firmware /lib/firmware/rtl_nic/rtl8168fp-3.fw for module r8169
 лечится в /lib/firmware/rtl_nic положить нужное из https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/rtl_nic/
 
-Для 20.04
+Для 20.04 (после одного из обновлений openbox не запускает нужный скрипт, надо доработать)
 Установить пакеты
 
 sudo apt install --install-recommends xserver-xorg xserver-xorg-input-all x11-xserver-utils xinit openbox numlockx pulseaudio alsa alsa-utils alsa-tools moc gawk x11-utils yad zenity xfonts-100dpi xfonts-75dpi xfonts-scalable xterm freerdp2-x11 linux-generic-hwe-20.04 fdutils
